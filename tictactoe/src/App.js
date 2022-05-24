@@ -8,8 +8,8 @@ function App() {
   class Square extends React.Component {
     render() {
       return (
-        <button className="square">
-          {/* TODO */}
+        <button className="square" onClick={()=> this.props.onClick()}>
+          {this.propse.value}
         </button>
       );
     }
