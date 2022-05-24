@@ -4,50 +4,69 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-  class Square extends React.Component {
-
-    constructor(props) {
-      super(props);
-      this.state = {
-        value: null,
-      };
-    }
-
-    render() {
-      return (
-        <button 
-          className = "square" 
-          onClick = {() => this.props.onClick()} >
-          
-          {this.props.value}
+  function Square(props) {
+    return (
+      <button 
+        className = "square" 
+        onClick = { props.onClick } >
+          {props.value}
         </button>
-      );
-    }
+        
+
+    );
+    // constructor(props) {
+    //   super(props);
+    //   this.state = {
+    //     value: null,
+    //   };
+    // }
+
+    // render() {
+    //   return (
+    //   )
+    // }
   }
   
   class Board extends React.Component {
 
-    constructor(props) {
-      super(props);
-      this.state = {
-        squares: Array(9).fill(null),
-      };
-    }
-    handleClick (i) {
-      const squares = this.state.squares.slice();
-      squares[i] = 'X';
-      this.setState({squares: squares});
-    }
+    // constructor(props) {
+    //   super(props);
+    //   this.state = {
+    //     squares: Array(9).fill(null),
+    //     xIsnext: true,
+    //   };
+    // }
+
+    // handleClick (i) {
+    //   const squares = this.state.squares.slice();
+    //   if(calculateWinner(squares) || squares[i]) {
+    //     return;
+    //   }
+    //   squares[i] = this.state.xIsnext ? 'X' : 'O';
+    //   this.setState({
+    //     squares: squares,
+    //     xIsnext: !this.state.xIsnext,
+    //   });
+    // }
+
     renderSquare(i) {
       return (
       <Square 
-        value = {this.state.squares[i]}
-        onClick = {() => this.handleClick(i)} />);
+        value = {this.props.squares[i]}
+        onClick = {() => this.props.onClick(i)} />);
     }
   
     render() {
-      const status = 'Next player: X';
+
+        // const winner = calculateWinner(this.state.squares);
+        // let status;
   
+        // if (winner) {
+        //   status = 'Winner : ' + winner;
+        // } else {
+        //   status = 'Next player : ' + (this.state.xIsnext ? 'X': 'O');
+        // }
+
       return (
         <div>
           <div className="status">{status}</div>
@@ -69,17 +88,60 @@ import reportWebVitals from './reportWebVitals';
         </div>
       );
     }
-  }
+    }
+  
   
   class Game extends React.Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        history: [{
+          squares: Array(9).fill(null),
+        }],
+        xIsnext: true,
+      }
+    }
+
+    handleClick (i) {
+      const history = this.state.history;
+      const current = history[history.length -1];
+      const squares = this.state.squares.slice();
+
+      if(calculateWinner(squares) || squares[i]) {
+        return;
+      }
+      
+      squares[i] = this.state.xIsnext ? 'X' : 'O';
+      this.setState ({
+        history: history.concat([{
+        squares: squares,
+      }]),
+      xIsnext: !this.state.xIsnext,
+      });
+    }
+
     render() {
+      const history = this.state.history;
+      const current = history[history.length -1];
+      const winner = calculateWinner(current.squares);
+
+      let status;
+      if (winner) {
+        status = 'Winner: ' + winner;
+      } else {
+        status = 'Next player: ' + (this.state.xIsnext ? 'X' : 'O');
+      }
       return (
         <div className="game">
           <div className="game-board">
-            <Board />
+            <Board 
+                squares={current.squares}
+                onClick = {(i) => this.handleClick(i)}
+                />
           </div>
           <div className="game-info">
-            <div>{/* status */}</div>
+            <div>{status}</div>
             <ol>{/* TODO */}</ol>
           </div>
         </div>
@@ -97,4 +159,30 @@ import reportWebVitals from './reportWebVitals';
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// reportWebVitals();
+
+function calculateWinner (squares) {
+  const lines = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6],
+  ];
+
+  for (let i = 0; i<lines.length; i++) {
+    const [a,b,c] = lines[i];
+
+    if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+    return null;
+
+  }
+
+
+
