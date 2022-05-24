@@ -91,3 +91,18 @@ ol, ul {
 }
 
 
+.subtitle {
+  padding : 20px;
+  margin : 20px;
+}
+
+h1{
+  font-size: 100px;
+}
+
+.wrap {
+  align-items: center;
+  width : 800px;
+  padding-left : 500px;
+  
+}

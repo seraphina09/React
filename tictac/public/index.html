@@ -20,12 +20,13 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Tic Tac Tok!</title>
+    <title>Tic Tac Toe!</title>
   </head>
   <body>
+    <div class ="wrap">
     <div id="header">
     <header>
-        <h1>Tic, Tak, Tok</h1>
+        <h1>😊Tic, Tak, Toe</h1>
     </header>
     </div>
 
@@ -42,15 +43,18 @@
     </article>
 
     <article>
-        Tic, Tak, Tok GAME
+      <div class = "subtitle">
+        Let's play Tic, Tak, Toe 
+      </div> 
         <div id="root"></div>
+        
         <div>
           <button>start</button>
-          <button>reset</button>
+          <a href ="javascript:window.location.href=window.location.href"><button>reset</button></a>
         </div>
     </article>
     </div>
-    
+  </div>
     <script>
       window.addEventListener('mousedown', function(e) {
         document.body.classList.add('mouse-navigation');
