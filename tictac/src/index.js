@@ -64,6 +64,7 @@ class Game extends React.Component {
   }  
 
 
+
   async handleClick(i) {
     const squares = this.getCurrentBoard();
     if (this.calculateWinner(squares) || squares[i]) {
@@ -112,6 +113,7 @@ class Game extends React.Component {
     }
     return null;
   }
+  
   jumpTo(step) {
     const xIsNext = step !== this.state.stepNumber ? !this.state.xIsNext : this.state.xIsNext;
     this.setState({
@@ -146,8 +148,7 @@ class Game extends React.Component {
       xIsNext: !this.state.xIsNext,
     });
   }
-
-
+      // }
 
 
   render() {
@@ -177,70 +178,16 @@ class Game extends React.Component {
           <ol>{moves}</ol>
           <ol>{/* TODO */}</ol>
         </div>
+        <div>
+          {/* <input type ="text" name = "title" value ={this.state.title} onChange = 
+          {this.handleChange.bind(this)}/>  */}
+        </div>
       </div>
+
     );
   }
+
 }
-
-class Firstlast extends React.Component{
-  constructor (){
-    super();
-    this.state = {
-      name : "firstlast"
-      };
-
-      this.onValueChange = this.onValueChange.bind(this);
-      this.formSubmit = this.formSubmit.bind(this);
-    }
-
-    onValueChange(event){
-      this.setState({
-        selectedOption : event.target.value
-      });
-    }
-
-    formSubmit(event) {
-      event.preventDefault();
-      console.log(this.state.selectedOption)
-    }
-
-    render(){
-      return (
-        <form onSubmit={this.formSubmit}>
-          <div className ="radio" >
-            <label>
-              <input 
-                  type = "radio"
-                  value = "male"
-                  checked = {this.state.selectedOption === "male"}
-                  onChange = {this.onValueChange}
-                  />
-                  Male
-            </label>
-          </div>
-
-          <div className ="radio" >
-            <label>
-              <input 
-                  type = "radio"
-                  value = "female"
-                  checked = {this.state.selectedOption === "female"}
-                  onChange = {this.onValueChange}
-                  />
-                  Female
-            </label>
-          </div>
-
-          <button className='btn btn-default' type = "submit">
-            GameStart!
-          </button>
-        </form>
-      );
-    }
-  }
-
-
-
 // ========================================
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
