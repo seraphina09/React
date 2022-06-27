@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 		// 회원가입시 필요한 정보를 클라이언트에서 받으면 db에 넣어둔다
 		// 내부에는 json형식으로 클라이언트 입력값이 들어있음
 		const user = new User(req.body);
-		console.log(user);
+
 
 		user.save((err) => {
 			if (err) return res.json({ success: false, err });
